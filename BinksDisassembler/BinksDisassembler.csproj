@@ -46,6 +46,10 @@
     <AOTMode>None</AOTMode>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ELFSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=f2d0c9031b10d3c0">
+      <HintPath>..\packages\ELFSharp.2.11.0\lib\netstandard2.0\ELFSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.Mac" />
@@ -70,8 +74,10 @@
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Disassembler\OpenRiscExecutable.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="ViewController.cs" />
