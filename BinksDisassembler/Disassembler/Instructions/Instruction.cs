@@ -1,39 +1,43 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 
 namespace BinksDisassembler.Disassembler.Instructions
 {
-    public class Instruction
+    public abstract class InstructionRuleFactory
     {
-        private BitArray _data;
+        public abstract List<Rule> Rules {get;}
+    }
+    
+    public abstract class Instruction
+    {
+        protected readonly BitArray Data;
+
+        public abstract override string ToString(); 
 
         public Instruction(BitArray data)
         {
-            _data = data;
+            Data = data;
         }
 
         public Instruction(byte[] data)
         {
-            _data = new BitArray(data);
+            Data = new BitArray(data);
             
-            this.PrintAsHex(_data);
+            Console.WriteLine(ToHexString());
         }
 
-        private void PrintAsHex(BitArray bits)
+        public string ToHexString()
         {
-            StringBuilder sb = new StringBuilder(bits.Length / 4);
+            var sb = new StringBuilder(Data.Length / 4);
 
-            for (int i = 0; i < bits.Length; i += 4) {
-                int v = (bits[i] ? 8 : 0) | 
-                        (bits[i + 1] ? 4 : 0) | 
-                        (bits[i + 2] ? 2 : 0) | 
-                        (bits[i + 3] ? 1 : 0);
-
-                sb.Append(v.ToString("x1")); // Or "X1"
+            for (var i = 0; i < Data.Length; i += 4) {
+                var v = (Data[i] ? 8 : 0) | (Data[i + 1] ? 4 : 0) | (Data[i + 2] ? 2 : 0) | (Data[i + 3] ? 1 : 0);
+                sb.Append(v.ToString("x1"));
             }
 
-            Console.Write(sb.ToString());
+            return sb.ToString();
         }
     }
 }

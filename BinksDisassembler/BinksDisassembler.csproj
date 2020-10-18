@@ -11,6 +11,7 @@
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -78,7 +79,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Disassembler\Instructions\Instruction.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LCsync.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LMsync.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LPsync.cs" />
+    <Compile Include="Disassembler\Instructions\Rule.cs" />
+    <Compile Include="Disassembler\Instructions\Unknown.cs" />
     <Compile Include="Disassembler\OpenRiscExecutable.cs" />
+    <Compile Include="Tools\BitArrayFactory.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="ViewController.cs" />
