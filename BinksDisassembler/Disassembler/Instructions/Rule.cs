@@ -1,4 +1,5 @@
 using System.Collections;
+using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions
 {
@@ -12,6 +13,17 @@ namespace BinksDisassembler.Disassembler.Instructions
         {
             Opcode = opcode;
             Offset = offset;
+        }
+
+        public Rule(uint value, ushort size, ushort offset = 0)
+        {
+            Opcode = BitArrayFactory.FromUnsignedInt(value, size);
+            Offset = offset;
+        }
+
+        public override string ToString()
+        {
+            return $"{Offset}: 0x{Opcode.ToHex()}";
         }
     }
 }

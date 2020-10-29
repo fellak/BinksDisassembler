@@ -80,14 +80,20 @@
   <ItemGroup>
     <Compile Include="Disassembler\Instructions\Instruction.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LCsync.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LMac.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LMacU.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LMsb.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LMsync.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LPsync.cs" />
     <Compile Include="Disassembler\Instructions\Rule.cs" />
     <Compile Include="Disassembler\Instructions\Unknown.cs" />
+    <Compile Include="Disassembler\Resolver.cs" />
     <Compile Include="Disassembler\OpenRiscExecutable.cs" />
     <Compile Include="Tools\BitArrayFactory.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Tools\DescendingComparer.cs" />
+    <Compile Include="Tools\TypeExtensions.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>

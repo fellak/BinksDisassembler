@@ -5,11 +5,13 @@ using System.Text;
 
 namespace BinksDisassembler.Disassembler.Instructions
 {
-    public abstract class InstructionRuleFactory
+    public interface IInstructionFactory
     {
-        public abstract List<Rule> Rules {get;}
+        public List<Rule> GetRules();
+        public Instruction CreateFromBytes(byte[] data);
+        public Instruction CreateFromBitArray(BitArray data);
     }
-    
+
     public abstract class Instruction
     {
         protected readonly BitArray Data;

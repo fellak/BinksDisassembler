@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using BinksDisassembler.Disassembler.Instructions;
+using BinksDisassembler.Tools;
 using ELFSharp.ELF;
 using ELFSharp.ELF.Sections;
 using ELFSharp.Utilities;
@@ -13,21 +13,21 @@ namespace BinksDisassembler.Disassembler
     public class OpenRiscExecutable
     {
         private const int InstructionSize = 4;
-        private readonly IELF _elf; 
+        private readonly IELF _elf;
+        private readonly Resolver _instructionSet;
+        
         
         public OpenRiscExecutable(IELF elf)
         {
             _elf = elf;
-            
-            // Build instruction mapping from instruction rule factories
-            var factories = typeof(InstructionRuleFactory).Assembly.GetTypes().Where(
-                t => t.BaseType == typeof(InstructionRuleFactory)
-                );
+            _instructionSet = new Resolver();
 
-            foreach (var factory in factories)
+            // Build instruction mapping from instruction rule factories
+            foreach (var factory in typeof(IInstructionFactory).GetImplementingTypes())
             {
-                var instance = new TaskFactory();
-                Console.WriteLine();
+                var inst = (IInstructionFactory) Activator.CreateInstance(factory);
+                var rules = inst.GetRules();
+                _instructionSet.Add(new Queue<Rule>(rules), inst);
             }
         }
 

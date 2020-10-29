@@ -4,16 +4,29 @@ using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
-    public class LCsync : Instruction
+    public class LCsyncFactory : IInstructionFactory
     {
-        private class RuleFactory : InstructionRuleFactory
+        public List<Rule> GetRules()
         {
-            public override List<Rule> Rules { get; } = new List<Rule>()
+            return new List<Rule>()
             {
-                new Rule(BitArrayFactory.FromUnsignedInt(0x23000000, 32))
+                new Rule(BitArrayFactory.FromUnsignedInt(0x23000000, 32)),
             };
         }
-        
+
+        public Instruction CreateFromBytes(byte[] data)
+        {
+            return new LCsync(data);
+        }
+
+        public Instruction CreateFromBitArray(BitArray data)
+        {
+            return new LCsync(data);
+        }
+    }
+    
+    public class LCsync : Instruction
+    {
         public LCsync(BitArray data) : base(data)
         {
         }
