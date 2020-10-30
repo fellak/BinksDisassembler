@@ -16,7 +16,6 @@ namespace BinksDisassembler.Disassembler
             ; 
         private IInstructionFactory _instructionFactory;
         private ushort? _offset;
-        private Dictionary<uint, uint> _sampleSizes = new Dictionary<uint, uint>();
 
         public void Add(Queue<Rule> rules, IInstructionFactory factory)
         {
@@ -67,10 +66,14 @@ namespace BinksDisassembler.Disassembler
             foreach (var resolverConfig in _resolvers)
             {
                 var sample = rawInstruction.CopySlice((int) _offset, (int) resolverConfig.Key);
-                var result = resolverConfig.Value[sample.ToUnsignedInt()].Resolve(rawInstruction);
 
-                if (result != null)
-                    return result;
+                if (resolverConfig.Value.TryGetValue(sample.ToUnsignedInt(), out var resolver))
+                {
+                    var result = resolver.Resolve(rawInstruction);
+                    
+                    if (result != null)
+                        return result;
+                }
             }
 
             return null;

@@ -8,7 +8,6 @@ namespace BinksDisassembler.Disassembler.Instructions
     public interface IInstructionFactory
     {
         public List<Rule> GetRules();
-        public Instruction CreateFromBytes(byte[] data);
         public Instruction CreateFromBitArray(BitArray data);
     }
 

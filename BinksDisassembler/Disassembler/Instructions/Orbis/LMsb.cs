@@ -9,19 +9,14 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
         {
             return new List<Rule>()
             {
-                new Rule(0x32, 6),
+                new Rule(0x31, 6),
                 new Rule(0x2, 4, 28),
             };
         }
 
-        public Instruction CreateFromBytes(byte[] data)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public Instruction CreateFromBitArray(BitArray data)
         {
-            throw new System.NotImplementedException();
+            return new LMsb(data);
         }
     }
     

@@ -42,6 +42,13 @@ namespace BinksDisassembler.Tools
             }
             return result;
         }
+        
+        public static BitArray Append(this BitArray current, BitArray after) {
+            var result = new bool[current.Count + after.Count];
+            current.CopyTo(result, 0);
+            after.CopyTo(result, current.Count);
+            return new BitArray(result);
+        }
 
         public static string ToHex(this BitArray value)
         {

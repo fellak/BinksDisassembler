@@ -78,6 +78,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Disassembler\InstructionRecord.cs" />
     <Compile Include="Disassembler\Instructions\Instruction.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LCsync.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LMac.cs" />
@@ -94,6 +95,8 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Tools\DescendingComparer.cs" />
     <Compile Include="Tools\TypeExtensions.cs" />
+    <Compile Include="UI\InstructionRecordTableDataSource.cs" />
+    <Compile Include="UI\InstructionRecordTableDelegate.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>

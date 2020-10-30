@@ -1,7 +1,8 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using AppKit;
 using BinksDisassembler.Disassembler;
+using BinksDisassembler.UI;
 using ELFSharp.ELF;
 using Foundation;
 
@@ -30,6 +31,15 @@ namespace BinksDisassembler
                 var path = dlg.Urls[0].Path;
                 var elf = ELFReader.Load(path);
                 var disassemblyFile = new OpenRiscExecutable(elf);
+                
+                var dataSource = new InstructionRecordTableDataSource();
+                foreach (var instruction in disassemblyFile.TestResult())
+                {
+                    dataSource.Records.Add(new InstructionRecord(0, instruction));
+                }
+
+                InstructionsTableView.DataSource = dataSource;
+                InstructionsTableView.Delegate = new InstructionRecordTableDelegate(dataSource);
             }
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace BinksDisassembler.Disassembler
         private const int InstructionSize = 4;
         private readonly IELF _elf;
         private readonly Resolver _instructionSet;
-        
-        
+
+
         public OpenRiscExecutable(IELF elf)
         {
             _elf = elf;
@@ -29,6 +30,40 @@ namespace BinksDisassembler.Disassembler
                 var rules = inst.GetRules();
                 _instructionSet.Add(new Queue<Rule>(rules), inst);
             }
+        }
+
+        public List<Instruction> TestResult()
+        {
+            var instructions = new List<Instruction>()
+            {
+                // l.msync
+                _instructionSet.Resolve(
+                    BitArrayFactory.FromUnsignedInt(0x22000000, 32)
+                ), 
+                
+                // l.csync
+                _instructionSet.Resolve(
+                    BitArrayFactory.FromUnsignedInt(0x23000000, 32)
+                ),
+                
+                // l.psync
+                _instructionSet.Resolve(
+                    BitArrayFactory.FromUnsignedInt(0x22800000, 32)
+                ),
+                
+                
+                // l.mac
+                _instructionSet.Resolve(BitArrayFactory.FromUnsignedInt(0x31, 6)
+                    .Append(
+                        BitArrayFactory.FromUnsignedInt(0, 22)
+                    )
+                    .Append(
+                        BitArrayFactory.FromUnsignedInt(0x1, 4))
+                )
+                
+            };
+
+            return instructions;
         }
 
         public List<Instruction> Disassemble()
