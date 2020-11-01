@@ -37,7 +37,8 @@ namespace BinksDisassembler.UI
 
             view.StringValue = tableColumn.Title switch
             {
-                "Section" => _dataSource.Records[(int) row].Section.ToString(),
+                "Section" => _dataSource.Records[(int) row].Section,
+                "Address" => _dataSource.Records[(int) row].Address.ToString("x8"),
                 "Instruction" => _dataSource.Records[(int) row].Instruction.ToString(),
                 _ => view.StringValue
             };

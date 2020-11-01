@@ -85,6 +85,7 @@
     <Compile Include="Disassembler\Instructions\Orbis\LMacU.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LMsb.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LMsync.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LNop.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LPsync.cs" />
     <Compile Include="Disassembler\Instructions\Rule.cs" />
     <Compile Include="Disassembler\Instructions\Unknown.cs" />

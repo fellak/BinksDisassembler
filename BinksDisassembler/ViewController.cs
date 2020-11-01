@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using AppKit;
 using BinksDisassembler.Disassembler;
 using BinksDisassembler.UI;
 using ELFSharp.ELF;
-using Foundation;
 
 namespace BinksDisassembler
 {
@@ -35,8 +33,10 @@ namespace BinksDisassembler
                 var dataSource = new InstructionRecordTableDataSource();
                 foreach (var instruction in disassemblyFile.TestResult())
                 {
-                    dataSource.Records.Add(new InstructionRecord(0, instruction));
+                    dataSource.Records.Add(new InstructionRecord(".section", 0, instruction));
                 }
+
+                dataSource.Records = disassemblyFile.Disassemble();
 
                 InstructionsTableView.DataSource = dataSource;
                 InstructionsTableView.Delegate = new InstructionRecordTableDelegate(dataSource);

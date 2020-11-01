@@ -13,7 +13,7 @@ namespace BinksDisassembler.Disassembler
     {
         private readonly SortedDictionary<uint, OppcodeMapping> _resolvers 
                 = new SortedDictionary<uint, OppcodeMapping>(new DescendingComparer<uint>())
-            ; 
+            ;
         private IInstructionFactory _instructionFactory;
         private ushort? _offset;
 

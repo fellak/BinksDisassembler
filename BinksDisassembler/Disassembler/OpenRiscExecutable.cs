@@ -66,15 +66,14 @@ namespace BinksDisassembler.Disassembler
             return instructions;
         }
 
-        public List<Instruction> Disassemble()
+        public List<InstructionRecord> Disassemble()
         {
-            var instructions = new List<Instruction>();
+            var instructions = new List<InstructionRecord>();
             var sectionsToLoad = _elf.GetSections<ProgBitsSection<uint>>()
-                .Where(x => x.LoadAddress != 0); 
+                .Where(x => x.Type == SectionType.ProgBits && x.Flags.HasFlag(SectionFlags.Executable));
             
             foreach (var s in sectionsToLoad)
             {
-                Console.WriteLine(s.Name);
                 var stream = new MemoryStream(s.GetContents());
                 var reader = new SimpleEndianessAwareReader(stream, _elf.Endianess);
                 uint position = 0;
@@ -82,12 +81,13 @@ namespace BinksDisassembler.Disassembler
                 while (position < s.Size)
                 {
                     var chunk = reader.ReadBytes(InstructionSize);
-                    instructions.Add(new Unknown(chunk));
+                    var instruction = _instructionSet.Resolve(new BitArray(chunk)) ?? new Unknown(chunk);
+
+                    instructions.Add(
+                        new InstructionRecord(s.Name, s.LoadAddress + position, instruction)
+                    );
                     position += InstructionSize;
                 }
-                
-                Console.WriteLine();
-                Console.WriteLine();
             }
 
             return instructions;
