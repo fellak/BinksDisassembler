@@ -81,8 +81,12 @@
     <Compile Include="Disassembler\InstructionRecord.cs" />
     <Compile Include="Disassembler\Instructions\Instruction.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LCsync.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LJ.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LLwz.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LMac.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LMacrc.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LMacU.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\LMovhi.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LMsb.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LMsync.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LNop.cs" />

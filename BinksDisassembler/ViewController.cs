@@ -29,12 +29,12 @@ namespace BinksDisassembler
                 var path = dlg.Urls[0].Path;
                 var elf = ELFReader.Load(path);
                 var disassemblyFile = new OpenRiscExecutable(elf);
-                
+
                 var dataSource = new InstructionRecordTableDataSource();
-                foreach (var instruction in disassemblyFile.TestResult())
-                {
-                    dataSource.Records.Add(new InstructionRecord(".section", 0, instruction));
-                }
+                // foreach (var instruction in disassemblyFile.TestResult())
+                // {
+                //     dataSource.Records.Add(new InstructionRecord(".section", 0, instruction));
+                // }
 
                 dataSource.Records = disassemblyFile.Disassemble();
 

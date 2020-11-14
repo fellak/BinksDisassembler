@@ -39,6 +39,7 @@ namespace BinksDisassembler.UI
             {
                 "Section" => _dataSource.Records[(int) row].Section,
                 "Address" => _dataSource.Records[(int) row].Address.ToString("x8"),
+                "Data" => _dataSource.Records[(int) row].Instruction.ToHexString(),
                 "Instruction" => _dataSource.Records[(int) row].Instruction.ToString(),
                 _ => view.StringValue
             };

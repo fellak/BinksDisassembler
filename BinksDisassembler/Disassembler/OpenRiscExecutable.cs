@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,15 +19,7 @@ namespace BinksDisassembler.Disassembler
         public OpenRiscExecutable(IELF elf)
         {
             _elf = elf;
-            _instructionSet = new Resolver();
-
-            // Build instruction mapping from instruction rule factories
-            foreach (var factory in typeof(IInstructionFactory).GetImplementingTypes())
-            {
-                var inst = (IInstructionFactory) Activator.CreateInstance(factory);
-                var rules = inst.GetRules();
-                _instructionSet.Add(new Queue<Rule>(rules), inst);
-            }
+            _instructionSet = Resolver.CreateInstructionSet();
         }
 
         public List<Instruction> TestResult()
@@ -59,6 +49,26 @@ namespace BinksDisassembler.Disassembler
                     )
                     .Append(
                         BitArrayFactory.FromUnsignedInt(0x1, 4))
+                ),
+                
+                // l.movhi
+                _instructionSet.Resolve(BitArrayFactory.FromUnsignedInt(0x06, 6)
+                    .Append(
+                        BitArrayFactory.FromUnsignedInt(0, 9)
+                    )
+                    .Append(
+                        BitArrayFactory.FromUnsignedInt(0x0, 1)
+                        )
+                    .Append(
+                        BitArrayFactory.FromUnsignedInt(0x0, 16)
+                        )
+                ),
+                
+                // l.lwz
+                _instructionSet.Resolve(BitArrayFactory.FromUnsignedInt(0x21, 6)
+                    .Append(
+                        BitArrayFactory.FromUnsignedInt(0, 26)
+                    )
                 )
                 
             };
@@ -71,7 +81,6 @@ namespace BinksDisassembler.Disassembler
             var instructions = new List<InstructionRecord>();
             var sectionsToLoad = _elf.GetSections<ProgBitsSection<uint>>()
                 .Where(x => x.Type == SectionType.ProgBits && x.Flags.HasFlag(SectionFlags.Executable));
-            
             foreach (var s in sectionsToLoad)
             {
                 var stream = new MemoryStream(s.GetContents());
@@ -80,11 +89,14 @@ namespace BinksDisassembler.Disassembler
 
                 while (position < s.Size)
                 {
-                    var chunk = reader.ReadBytes(InstructionSize);
-                    var instruction = _instructionSet.Resolve(new BitArray(chunk)) ?? new Unknown(chunk);
+                    var chunk = BitArrayFactory.FromUnsignedInt(
+                        reader.ReadUInt32(), InstructionSize * 8
+                        );
+                    var instruction = _instructionSet.Resolve(chunk) ?? new Unknown(chunk);
+                    var address = s.LoadAddress + position;
 
                     instructions.Add(
-                        new InstructionRecord(s.Name, s.LoadAddress + position, instruction)
+                        new InstructionRecord(s.Name, address, instruction)
                     );
                     position += InstructionSize;
                 }
