@@ -1,43 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
     public class LMsyncFactory : IInstructionFactory
     {
-        public List<Rule> GetRules()
+        public List<Opcode> GetOpcodes()
         {
-            return new List<Rule>()
+            return new List<Opcode>()
             {
-                new Rule(BitArrayFactory.FromUnsignedInt(0x22000000, 32))
+                new Opcode(0x22000000, 32)
             };
         }
 
-        public Instruction CreateFromBytes(byte[] data)
+        public Instruction Create(BitArray data)
         {
-            return new LMsync(data);
-        }
-
-        public Instruction CreateFromBitArray(BitArray data)
-        {
-            return new LMsync(data);
-        }
-    }
-    
-    public class LMsync : Instruction
-    {
-        public LMsync(BitArray data) : base(data)
-        {
-        }
-
-        public LMsync(byte[] data) : base(data)
-        {
-        }
-
-        public override string ToString()
-        {
-            return "l.msync";
+            var instruction = new Instruction("l.msync");
+            return instruction;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿# BinkDisassembler
 
+**WORK IN PROGRESS**
+
 Simple desktop disassembler for [OpenRISC 1000](https://openrisc.io/) architecture for macOS written in C# (.NET Core) -
 Jar Jar Binks of disassemblers.
 
@@ -7,6 +9,10 @@ According to the official [OpenRISC 1000 Architecture Manual v1.3](https://raw.g
 I have created a simple Excel spreadsheet with [list if instructions](docs/instructions.xlsx) for better disassembler analysis.
 
 ![](docs/screenshots/MainWindow.png)
+
+## Notes & ideas
+
+- Instead of manual object definition, try to dynamically define instruction in InstructionFactory using rules. AddFactory, AddOpcode methods
 
 ## Credits
 

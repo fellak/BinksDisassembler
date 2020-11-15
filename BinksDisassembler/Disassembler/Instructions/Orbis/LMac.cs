@@ -5,34 +5,19 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
     public class LMacFactory : IInstructionFactory
     {
-        public List<Rule> GetRules()
+        public List<Opcode> GetOpcodes()
         {
-            return new List<Rule>()
+            return new List<Opcode>()
             {
-                new Rule(0x31, 6),
-                new Rule(0x1, 4, 28),
+                new Opcode(0x32, 6),
+                new Opcode(0x1, 4, 28)
             };
         }
 
-        public Instruction CreateFromBitArray(BitArray data)
+        public Instruction Create(BitArray data)
         {
-            return new LMac(data);
-        }
-    }
-    
-    public class LMac : Instruction
-    {
-        public LMac(BitArray data) : base(data)
-        {
-        }
-
-        public LMac(byte[] data) : base(data)
-        {
-        }
-
-        public override string ToString()
-        {
-            return $"l.mac rA,rB";
+            var instruction = new Instruction("l.mac");
+            return instruction;
         }
     }
 }

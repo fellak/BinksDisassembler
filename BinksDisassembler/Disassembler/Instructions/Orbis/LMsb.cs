@@ -5,34 +5,19 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
     public class LMsbFactory : IInstructionFactory
     {
-        public List<Rule> GetRules()
+        public List<Opcode> GetOpcodes()
         {
-            return new List<Rule>()
+            return new List<Opcode>()
             {
-                new Rule(0x31, 6),
-                new Rule(0x2, 4, 28),
+                new Opcode(0x31, 6),
+                new Opcode(0x2, 4, 28)
             };
         }
 
-        public Instruction CreateFromBitArray(BitArray data)
+        public Instruction Create(BitArray data)
         {
-            return new LMsb(data);
-        }
-    }
-    
-    public class LMsb : Instruction
-    {
-        public LMsb(BitArray data) : base(data)
-        {
-        }
-
-        public LMsb(byte[] data) : base(data)
-        {
-        }
-
-        public override string ToString()
-        {
-            return $"l.msb rA,rB";
+            var instruction = new Instruction("l.msb");
+            return instruction;
         }
     }
 }

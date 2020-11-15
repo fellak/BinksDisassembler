@@ -5,33 +5,18 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
     public class LLwzFactory : IInstructionFactory
     {
-        public List<Rule> GetRules()
+        public List<Opcode> GetOpcodes()
         {
-            return new List<Rule>()
+            return new List<Opcode>()
             {
-                new Rule(0x21, 6)
+                new Opcode(0x21, 6)
             };
         }
 
-        public Instruction CreateFromBitArray(BitArray data)
+        public Instruction Create(BitArray data)
         {
-            return new LLwz(data);
-        }
-    }
-
-    public class LLwz : Instruction
-    {
-        public LLwz(BitArray data) : base(data)
-        {
-        }
-
-        public LLwz(byte[] data) : base(data)
-        {
-        }
-
-        public override string ToString()
-        {
-            return "l.lwz";
+            var instruction = new Instruction("l.lwz");
+            return instruction;
         }
     }
 }

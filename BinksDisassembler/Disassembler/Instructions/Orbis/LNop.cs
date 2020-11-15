@@ -1,38 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
     public class LNopFactory : IInstructionFactory
     {
-        public List<Rule> GetRules()
+        public List<Opcode> GetOpcodes()
         {
-            return new List<Rule>()
+            return new List<Opcode>()
             {
-                new Rule(BitArrayFactory.FromUnsignedInt(0x15, 8))
+                new Opcode(0x15, 8)
             };
         }
 
-        public Instruction CreateFromBitArray(BitArray data)
+        public Instruction Create(BitArray data)
         {
-            return new LNop(data);
-        }
-    }
-
-    public class LNop : Instruction
-    {
-        public LNop(BitArray data) : base(data)
-        {
-        }
-
-        public LNop(byte[] data) : base(data)
-        {
-        }
-
-        public override string ToString()
-        {
-            return "l.nop";
+            var instruction = new Instruction("l.nop");
+            return instruction;
         }
     }
 }

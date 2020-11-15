@@ -80,6 +80,8 @@
   <ItemGroup>
     <Compile Include="Disassembler\InstructionRecord.cs" />
     <Compile Include="Disassembler\Instructions\Instruction.cs" />
+    <Compile Include="Disassembler\Instructions\InstructionArgument.cs" />
+    <Compile Include="Disassembler\Instructions\Opcode.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LCsync.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LJ.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LLwz.cs" />
@@ -91,8 +93,6 @@
     <Compile Include="Disassembler\Instructions\Orbis\LMsync.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LNop.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\LPsync.cs" />
-    <Compile Include="Disassembler\Instructions\Rule.cs" />
-    <Compile Include="Disassembler\Instructions\Unknown.cs" />
     <Compile Include="Disassembler\Resolver.cs" />
     <Compile Include="Disassembler\OpenRiscExecutable.cs" />
     <Compile Include="Tools\BitArrayFactory.cs" />

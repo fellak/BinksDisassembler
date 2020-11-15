@@ -5,34 +5,18 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
     public class LJFactory : IInstructionFactory
     {
-        public List<Rule> GetRules()
+        public List<Opcode> GetOpcodes()
         {
-            return new List<Rule>()
+            return new List<Opcode>()
             {
-                new Rule(0x00, 6)
+                new Opcode(0x00, 6)
             };
         }
 
-        public Instruction CreateFromBitArray(BitArray data)
+        public Instruction Create(BitArray data)
         {
-            return new LJ(data);
-        }
-    }
-
-
-    public class LJ : Instruction
-    {
-        public LJ(BitArray data) : base(data)
-        {
-        }
-
-        public LJ(byte[] data) : base(data)
-        {
-        }
-
-        public override string ToString()
-        {
-            return "l.j";
+            var instruction = new Instruction("l.j");
+            return instruction;
         }
     }
 }

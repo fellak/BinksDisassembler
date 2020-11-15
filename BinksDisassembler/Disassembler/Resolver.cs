@@ -23,35 +23,35 @@ namespace BinksDisassembler.Disassembler
             foreach (var factory in typeof(IInstructionFactory).GetImplementingTypes())
             {
                 var inst = (IInstructionFactory) Activator.CreateInstance(factory);
-                var rules = inst.GetRules();
-                result.Add(new Queue<Rule>(rules), inst);
+                var opcodes = inst.GetOpcodes();
+                result.Add(new Queue<Opcode>(opcodes), inst);
             }
 
             return result;
         }
 
-        public void Add(Queue<Rule> rules, IInstructionFactory factory)
+        public void Add(Queue<Opcode> opcodes, IInstructionFactory factory)
         {
-            if (rules.Any())
+            if (opcodes.Any())
             {
-                var rule = rules.Dequeue();
+                var opcode = opcodes.Dequeue();
 
-                if (!_offsets.ContainsKey(rule.Offset))
+                if (!_offsets.ContainsKey(opcode.Offset))
                 {
-                    _offsets[rule.Offset] = new SortedDictionary<uint, OppcodeMapping>(new DescendingComparer<uint>());
+                    _offsets[opcode.Offset] = new SortedDictionary<uint, OppcodeMapping>(new DescendingComparer<uint>());
                 }
 
-                if (!_offsets[rule.Offset].ContainsKey((uint) rule.Opcode.Length))
+                if (!_offsets[opcode.Offset].ContainsKey((uint) opcode.Value.Length))
                 {
-                    _offsets[rule.Offset][(uint) rule.Opcode.Length] = new Dictionary<uint, Resolver>();
+                    _offsets[opcode.Offset][(uint) opcode.Value.Length] = new Dictionary<uint, Resolver>();
                 }
 
-                if (!_offsets[rule.Offset][(uint) rule.Opcode.Length].ContainsKey(rule.Opcode.ToUnsignedInt()))
+                if (!_offsets[opcode.Offset][(uint) opcode.Value.Length].ContainsKey(opcode.Value.ToUnsignedInt()))
                 {
-                    _offsets[rule.Offset][(uint) rule.Opcode.Length][rule.Opcode.ToUnsignedInt()] = new Resolver();
+                    _offsets[opcode.Offset][(uint) opcode.Value.Length][opcode.Value.ToUnsignedInt()] = new Resolver();
                 }
                 
-                _offsets[rule.Offset][(uint) rule.Opcode.Length][rule.Opcode.ToUnsignedInt()].Add(rules, factory);
+                _offsets[opcode.Offset][(uint) opcode.Value.Length][opcode.Value.ToUnsignedInt()].Add(opcodes, factory);
             }
             else
             {
@@ -63,7 +63,7 @@ namespace BinksDisassembler.Disassembler
         {
             if (_instructionFactory != null)
             {
-                return _instructionFactory.CreateFromBitArray(rawInstruction);
+                return _instructionFactory.Create(rawInstruction);
             }
 
             foreach (var (offset, resolvers) in _offsets)

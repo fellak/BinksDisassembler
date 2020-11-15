@@ -18,12 +18,6 @@ namespace BinksDisassemblerTests.Instructions
         [Test]
         public void Test1()
         {
-            Assert.IsInstanceOf(
-                typeof(LMsync),
-                _instructionSet.Resolve(
-                    BitArrayFactory.FromUnsignedInt(0x22000000, 32)
-                )
-            );
         }
     }
 }

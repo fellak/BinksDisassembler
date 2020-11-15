@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,30 +8,31 @@ namespace BinksDisassembler.Disassembler.Instructions
 {
     public interface IInstructionFactory
     {
-        public List<Rule> GetRules();
-        public Instruction CreateFromBitArray(BitArray data);
+        public List<Opcode> GetOpcodes();
+
+        public Instruction Create(BitArray data);
     }
 
-    public abstract class Instruction
+    public class Instruction
     {
-        protected readonly BitArray Data;
+        private Dictionary<string, InstructionArgument> _arguments = new Dictionary<string, InstructionArgument>();
+        private string _formatString;
 
-        public abstract override string ToString(); 
+        public readonly string Name;
 
-        public Instruction(BitArray data)
+        public BitArray? Data;
+
+        public Instruction(string name, string formatString = "")
         {
-            Data = data;
-        }
-
-        public Instruction(byte[] data)
-        {
-            Data = new BitArray(data);
-            
-            Console.WriteLine(ToHexString());
+            Name = name;
+            _formatString = formatString;
         }
 
         public string ToHexString()
         {
+            if (Data == null)
+                return "";
+            
             var sb = new StringBuilder(Data.Length / 4);
 
             for (var i = 0; i < Data.Length; i += 4) {
@@ -39,6 +41,20 @@ namespace BinksDisassembler.Disassembler.Instructions
             }
 
             return sb.ToString();
+        }
+
+        public Instruction AddArgument(string name, ushort size, ushort offset = 0)
+        {
+            _arguments[name] = new InstructionArgument(name, size, offset);
+            return this;
+        }
+        
+        public override string ToString()
+        {
+            if (Data == null || _formatString.Length == 0)
+                return Name;
+
+            return $"{Name}";
         }
     }
 }

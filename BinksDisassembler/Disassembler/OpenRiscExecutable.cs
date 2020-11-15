@@ -92,7 +92,7 @@ namespace BinksDisassembler.Disassembler
                     var chunk = BitArrayFactory.FromUnsignedInt(
                         reader.ReadUInt32(), InstructionSize * 8
                         );
-                    var instruction = _instructionSet.Resolve(chunk) ?? new Unknown(chunk);
+                    var instruction = _instructionSet.Resolve(chunk) ?? new Instruction("UNKNOWN");
                     var address = s.LoadAddress + position;
 
                     instructions.Add(
