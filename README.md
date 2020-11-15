@@ -10,10 +10,6 @@ I have created a simple Excel spreadsheet with [list if instructions](docs/instr
 
 ![](docs/screenshots/MainWindow.png)
 
-## Notes & ideas
-
-- Instead of manual object definition, try to dynamically define instruction in InstructionFactory using rules. AddFactory, AddOpcode methods
-
 ## Credits
 
 - [ELFSharp](https://www.nuget.org/packages/ELFSharp/)

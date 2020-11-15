@@ -42,8 +42,7 @@ namespace BinksDisassembler.Disassembler.Instructions
             return sb.ToString();
         }
 
-        public Instruction AddArgument(string name, ushort size, ushort offset = 0,
-            InstructionArgument.RegisterStrategy registerStrategy = null)
+        public Instruction AddArgument(string name, ushort size, ushort offset = 0, RegisterStrategy registerStrategy = null)
         {
             _arguments[name] = new InstructionArgument(name, size, offset, registerStrategy);
             return this;

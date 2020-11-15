@@ -16,7 +16,10 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
 
         public Instruction Create(BitArray data)
         {
-            var instruction = new Instruction("l.macu");
+            var instruction = new Instruction("l.macu", "A,B");
+            instruction.AddArgument("A", 5, 11);
+            instruction.AddArgument("B", 5, 16);
+            instruction.Data = data;
             return instruction;
         }
     }
