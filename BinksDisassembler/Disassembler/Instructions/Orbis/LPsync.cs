@@ -13,7 +13,7 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
             };
         }
 
-        public Instruction Create(BitArray data)
+        public Instruction Create(uint position, BitArray data)
         {
             return new Instruction("l.psync");
         }

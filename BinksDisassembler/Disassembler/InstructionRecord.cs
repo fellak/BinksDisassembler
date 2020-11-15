@@ -6,7 +6,6 @@ namespace BinksDisassembler.Disassembler
     {
         public readonly string Section;
         public readonly uint Address;
-        public readonly uint Data;
         public readonly Instruction Instruction;
 
         public InstructionRecord(string section, uint address, Instruction instruction)

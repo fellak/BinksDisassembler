@@ -31,11 +31,6 @@ namespace BinksDisassembler
                 var disassemblyFile = new OpenRiscExecutable(elf);
 
                 var dataSource = new InstructionRecordTableDataSource();
-                // foreach (var instruction in disassemblyFile.TestResult())
-                // {
-                //     dataSource.Records.Add(new InstructionRecord(".section", 0, instruction));
-                // }
-
                 dataSource.Records = disassemblyFile.Disassemble();
 
                 InstructionsTableView.DataSource = dataSource;

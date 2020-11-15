@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions
@@ -9,7 +8,7 @@ namespace BinksDisassembler.Disassembler.Instructions
     {
         public List<Opcode> GetOpcodes();
 
-        public Instruction Create(BitArray data);
+        public Instruction Create(uint position, BitArray data);
     }
 
     public class Instruction
@@ -29,17 +28,7 @@ namespace BinksDisassembler.Disassembler.Instructions
 
         public string ToHexString()
         {
-            if (Data == null)
-                return "";
-            
-            var sb = new StringBuilder(Data.Length / 4);
-
-            for (var i = 0; i < Data.Length; i += 4) {
-                var v = (Data[i] ? 8 : 0) | (Data[i + 1] ? 4 : 0) | (Data[i + 2] ? 2 : 0) | (Data[i + 3] ? 1 : 0);
-                sb.Append(v.ToString("x1"));
-            }
-
-            return sb.ToString();
+            return Data != null ? Data.ToUnsignedInt().ToString("x8") : "";
         }
 
         public Instruction AddArgument(string name, ushort size, ushort offset = 0, RegisterStrategy registerStrategy = null)

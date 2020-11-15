@@ -14,7 +14,7 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
             };
         }
 
-        public Instruction Create(BitArray data)
+        public Instruction Create(uint position, BitArray data)
         {
             var instruction = new Instruction("l.movhi", "D,K")
                 .AddArgument("D", 5, 6, new RegisterStrategy())

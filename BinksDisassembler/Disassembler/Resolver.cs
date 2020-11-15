@@ -59,11 +59,11 @@ namespace BinksDisassembler.Disassembler
             }
         }
 
-        public Instruction Resolve(BitArray rawInstruction)
+        public Instruction Resolve(uint position, BitArray rawInstruction)
         {
             if (_instructionFactory != null)
             {
-                return _instructionFactory.Create(rawInstruction);
+                return _instructionFactory.Create(position, rawInstruction);
             }
 
             foreach (var (offset, resolvers) in _offsets)
@@ -74,7 +74,7 @@ namespace BinksDisassembler.Disassembler
 
                     if (resolverConfig.Value.TryGetValue(sample.ToUnsignedInt(), out var resolver))
                     {
-                        var result = resolver.Resolve(rawInstruction);
+                        var result = resolver.Resolve(position, rawInstruction);
                     
                         if (result != null)
                             return result;
