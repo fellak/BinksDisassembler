@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BinksDisassembler.Disassembler.Instructions.ArgumentStrategies;
 using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions
@@ -13,12 +14,14 @@ namespace BinksDisassembler.Disassembler.Instructions
 
     public class Instruction
     {
-        private Dictionary<string, InstructionArgument> _arguments = new Dictionary<string, InstructionArgument>();
-        private string _formatString;
+        private readonly Dictionary<string, InstructionArgument> _arguments = new Dictionary<string, InstructionArgument>();
+        private readonly string _formatString;
+        
+        public uint Position;
 
         public readonly string Name;
 
-        public BitArray? Data;
+        public BitArray Data = null;
 
         public Instruction(string name, string formatString = "")
         {
@@ -31,9 +34,9 @@ namespace BinksDisassembler.Disassembler.Instructions
             return Data != null ? Data.ToUnsignedInt().ToString("x8") : "";
         }
 
-        public Instruction AddArgument(string name, ushort size, ushort offset = 0, RegisterStrategy registerStrategy = null)
+        public Instruction AddArgument(string name, ushort size, ushort offset = 0, IArgumentStrategy strategy = null)
         {
-            _arguments[name] = new InstructionArgument(name, size, offset, registerStrategy);
+            _arguments[name] = new InstructionArgument(name, size, offset, strategy);
             return this;
         }
         
@@ -46,7 +49,7 @@ namespace BinksDisassembler.Disassembler.Instructions
 
             foreach (var argument in _arguments.Values)
             {
-                result.Add(argument.Name, argument.Format(Data));
+                result.Add(argument.Name, argument.Format(Data, Position));
             }
             
             return result.ToString();

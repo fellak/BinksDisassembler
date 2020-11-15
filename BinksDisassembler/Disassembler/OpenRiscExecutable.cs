@@ -40,6 +40,7 @@ namespace BinksDisassembler.Disassembler
                         reader.ReadUInt32(), InstructionSize * 8
                         );
                     var instruction = _instructionSet.Resolve(address, chunk) ?? new Instruction("UNKNOWN");
+                    instruction.Position = address;
 
                     instructions.Add(
                         new InstructionRecord(s.Name, address, instruction)

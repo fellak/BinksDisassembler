@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BinksDisassembler.Disassembler.Instructions.ArgumentStrategies;
 
 namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
@@ -17,8 +18,8 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
         public Instruction Create(uint position, BitArray data)
         {
             var instruction = new Instruction("l.mac", "A,B");
-            instruction.AddArgument("A", 5, 11, new RegisterStrategy());
-            instruction.AddArgument("B", 5, 16, new RegisterStrategy());
+            instruction.AddArgument("A", 5, 11, new RStrategy());
+            instruction.AddArgument("B", 5, 16, new RStrategy());
             instruction.Data = data;
             return instruction;
         }

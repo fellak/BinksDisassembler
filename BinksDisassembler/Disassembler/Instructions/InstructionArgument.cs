@@ -1,29 +1,9 @@
 using System.Collections;
+using BinksDisassembler.Disassembler.Instructions.ArgumentStrategies;
 using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions
 {
-    public interface IFormatStrategy
-    {
-        public string Format(uint value);
-    }
-
-    public class DefaultStrategy : IFormatStrategy
-    {
-        public string Format(uint value)
-        {
-            return $"0x{value:x8}";
-        }
-    }
-
-    public class RegisterStrategy : IFormatStrategy
-    {
-        public string Format(uint value)
-        {
-            return $"r{value}";
-        }
-    }
-    
     public class InstructionArgument
     {
         public string Name { get; }
@@ -32,9 +12,9 @@ namespace BinksDisassembler.Disassembler.Instructions
         
         public ushort Offset { get; }
 
-        public readonly IFormatStrategy Strategy;
+        public readonly IArgumentStrategy Strategy;
 
-        public InstructionArgument(string name, ushort size, ushort offset, IFormatStrategy strategy = null)
+        public InstructionArgument(string name, ushort size, ushort offset, IArgumentStrategy strategy = null)
         {
             Name = name;
             Size = size;
@@ -47,9 +27,9 @@ namespace BinksDisassembler.Disassembler.Instructions
             return data.CopySlice(Offset, Size).ToUnsignedInt();
         }
 
-        public string Format(BitArray data)
+        public string Format(BitArray data, uint position)
         {
-            return Strategy.Format(Resolve(data));
+            return Strategy.Format(Resolve(data), position);
         }
     }
     

@@ -79,6 +79,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Disassembler\InstructionRecord.cs" />
+    <Compile Include="Disassembler\Instructions\ArgumentStrategies\DefaultStrategy.cs" />
+    <Compile Include="Disassembler\Instructions\ArgumentStrategies\IArgumentStrategy.cs" />
+    <Compile Include="Disassembler\Instructions\ArgumentStrategies\NStrategy.cs" />
+    <Compile Include="Disassembler\Instructions\ArgumentStrategies\RStrategy.cs" />
     <Compile Include="Disassembler\Instructions\Instruction.cs" />
     <Compile Include="Disassembler\Instructions\InstructionArgument.cs" />
     <Compile Include="Disassembler\Instructions\Opcode.cs" />
