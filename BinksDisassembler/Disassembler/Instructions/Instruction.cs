@@ -1,8 +1,7 @@
-#nullable enable
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions
 {
@@ -43,9 +42,10 @@ namespace BinksDisassembler.Disassembler.Instructions
             return sb.ToString();
         }
 
-        public Instruction AddArgument(string name, ushort size, ushort offset = 0)
+        public Instruction AddArgument(string name, ushort size, ushort offset = 0,
+            InstructionArgument.RegisterStrategy registerStrategy = null)
         {
-            _arguments[name] = new InstructionArgument(name, size, offset);
+            _arguments[name] = new InstructionArgument(name, size, offset, registerStrategy);
             return this;
         }
         
@@ -54,7 +54,14 @@ namespace BinksDisassembler.Disassembler.Instructions
             if (Data == null || _formatString.Length == 0)
                 return Name;
 
-            return $"{Name}";
+            var result = new StringFormatter($"{Name} {_formatString}");
+
+            foreach (var argument in _arguments.Values)
+            {
+                result.Add(argument.Name, argument.Format(Data));
+            }
+            
+            return result.ToString();
         }
     }
 }

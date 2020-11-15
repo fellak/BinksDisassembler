@@ -15,8 +15,7 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
 
         public Instruction Create(BitArray data)
         {
-            var result = new Instruction("l.csync");
-            return result;
+            return new Instruction("l.csync");
         }
     }
 }

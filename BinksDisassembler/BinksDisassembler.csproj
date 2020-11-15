@@ -99,6 +99,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Tools\DescendingComparer.cs" />
+    <Compile Include="Tools\StringFormatter.cs" />
     <Compile Include="Tools\TypeExtensions.cs" />
     <Compile Include="UI\InstructionRecordTableDataSource.cs" />
     <Compile Include="UI\InstructionRecordTableDelegate.cs" />
