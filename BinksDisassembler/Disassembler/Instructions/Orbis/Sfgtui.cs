@@ -4,21 +4,21 @@ using BinksDisassembler.Disassembler.Instructions.ArgumentStrategies;
 
 namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
-    public class LJFactory : IInstructionFactory
+    public class Sfgtui : IInstructionFactory
     {
         public List<Opcode> GetOpcodes()
         {
             return new List<Opcode>()
             {
-                new Opcode(0x00, 6)
+                new Opcode(0x5e2, 11)
             };
         }
 
         public Instruction Create(uint position, BitArray data)
         {
-            var instruction = new Instruction("l.j", "K");
-            instruction.AddArgument("K", 26, 6, new NStrategy());
-            instruction.Data = data;
+            var instruction = new Instruction("l.sfgtui", "A,I");
+            instruction.AddArgument("A", 5, 11, new RStrategy());
+            instruction.AddArgument("I", 16, 16);
             return instruction;
         }
     }

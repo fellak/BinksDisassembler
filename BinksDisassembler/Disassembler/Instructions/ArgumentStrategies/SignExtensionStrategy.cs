@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
 using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions.ArgumentStrategies
 {
-    public class RStrategy : IArgumentStrategy
+    public class SignExtensionStrategy : IArgumentStrategy
     {
         public string Format(BitArray value, uint position)
         {
-            return $"r{value.ToUnsignedInt()}";
+            return value.ToUnsignedInt().ToString();
         }
     }
 }

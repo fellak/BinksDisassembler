@@ -29,7 +29,8 @@ namespace BinksDisassembler.Disassembler.Instructions
 
         public string Format(BitArray data, uint position)
         {
-            return Strategy.Format(Resolve(data), position);
+            return Strategy.Format(data.CopySlice(Offset, Size), position);
+            return Strategy.Format(BitArrayFactory.FromUnsignedInt(Resolve(data), 32), position);
         }
     }
     

@@ -1,10 +1,13 @@
+using System.Collections;
+using BinksDisassembler.Tools;
+
 namespace BinksDisassembler.Disassembler.Instructions.ArgumentStrategies
 {
     public class DefaultStrategy : IArgumentStrategy
     {
-        public string Format(uint value, uint position)
+        public string Format(BitArray value, uint position)
         {
-            return $"0x{value:x8}";
+            return value.ToUnsignedInt().ToString();
         }
     }
 }

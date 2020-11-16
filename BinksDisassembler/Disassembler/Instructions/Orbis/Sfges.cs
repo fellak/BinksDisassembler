@@ -4,23 +4,21 @@ using BinksDisassembler.Disassembler.Instructions.ArgumentStrategies;
 
 namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
-    public class LMacFactory : IInstructionFactory
+    public class SfgesFactory : IInstructionFactory
     {
         public List<Opcode> GetOpcodes()
         {
             return new List<Opcode>()
             {
-                new Opcode(0x32, 6),
-                new Opcode(0x1, 4, 28)
+                new Opcode(0x72b, 11)
             };
         }
 
         public Instruction Create(uint position, BitArray data)
         {
-            var instruction = new Instruction("l.mac", "A,B");
+            var instruction = new Instruction("l.sfges", "A,B");
             instruction.AddArgument("A", 5, 11, new RStrategy());
-            instruction.AddArgument("B", 5, 16, new RStrategy());
-            instruction.Data = data;
+            instruction.AddArgument("B", 5,16, new RStrategy());
             return instruction;
         }
     }

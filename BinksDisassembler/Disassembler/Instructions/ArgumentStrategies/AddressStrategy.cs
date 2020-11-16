@@ -3,11 +3,11 @@ using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions.ArgumentStrategies
 {
-    public class RStrategy : IArgumentStrategy
+    public class AddressStrategy : IArgumentStrategy
     {
         public string Format(BitArray value, uint position)
         {
-            return $"r{value.ToUnsignedInt()}";
+            return $"0x{value.ToUnsignedInt():x8}";
         }
     }
 }

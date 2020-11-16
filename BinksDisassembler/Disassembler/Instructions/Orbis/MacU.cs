@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
-    public class LMacUFactory : IInstructionFactory
+    public class MacUFactory : IInstructionFactory
     {
         public List<Opcode> GetOpcodes()
         {
@@ -19,7 +19,6 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
             var instruction = new Instruction("l.macu", "A,B");
             instruction.AddArgument("A", 5, 11);
             instruction.AddArgument("B", 5, 16);
-            instruction.Data = data;
             return instruction;
         }
     }

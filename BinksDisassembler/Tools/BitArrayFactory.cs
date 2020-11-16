@@ -37,7 +37,6 @@ namespace BinksDisassembler.Tools
 
             return result;
         }
-        
         public static uint EmptyZeros(this BitArray value)
         {
             for (var i = 0; i < value.Length; i++)

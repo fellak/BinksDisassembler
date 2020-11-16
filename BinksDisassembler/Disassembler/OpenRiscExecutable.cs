@@ -41,6 +41,7 @@ namespace BinksDisassembler.Disassembler
                         );
                     var instruction = _instructionSet.Resolve(address, chunk) ?? new Instruction("UNKNOWN");
                     instruction.Position = address;
+                    instruction.Data = chunk;
 
                     instructions.Add(
                         new InstructionRecord(s.Name, address, instruction)

@@ -3,19 +3,21 @@ using System.Collections.Generic;
 
 namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
-    public class LCsyncFactory : IInstructionFactory
+    public class TrapFactory : IInstructionFactory
     {
         public List<Opcode> GetOpcodes()
         {
             return new List<Opcode>()
             {
-                new Opcode(0x23000000, 32)
+                new Opcode(0x2100, 16)
             };
         }
 
         public Instruction Create(uint position, BitArray data)
         {
-            return new Instruction("l.csync");
+            var instruction = new Instruction("l.trap", "K");
+            instruction.AddArgument("K", 16, 16);
+            return instruction;
         }
     }
 }
