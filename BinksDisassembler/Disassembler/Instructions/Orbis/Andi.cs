@@ -4,21 +4,22 @@ using BinksDisassembler.Disassembler.Instructions.ArgumentStrategies;
 
 namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
-    public class SfleuiFactory : IInstructionFactory
+    public class AndiFactory : IInstructionFactory
     {
         public IEnumerable<Opcode> GetOpcodes()
         {
             return new List<Opcode>()
             {
-                new Opcode(0x5e5, 11)
+                new Opcode(0x29, 6)
             };
         }
 
         public Instruction Create()
         {
-            var instruction = new Instruction("l.sfleui", "A,I");
+            var instruction = new Instruction("l.andi", "D,A,K");
+            instruction.AddArgument("D", 5, 6, new RStrategy());
             instruction.AddArgument("A", 5, 11, new RStrategy());
-            instruction.AddArgument("I", 16, 16);
+            instruction.AddArgument("K", 16, 16, new HexStrategy());
             return instruction;
         }
     }

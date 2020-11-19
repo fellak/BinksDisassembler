@@ -79,16 +79,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Disassembler\InstructionRecord.cs" />
-    <Compile Include="Disassembler\Instructions\ArgumentStrategies\AddressStrategy.cs" />
+    <Compile Include="Disassembler\Instructions\ArgumentStrategies\HexStrategy.cs" />
     <Compile Include="Disassembler\Instructions\ArgumentStrategies\DefaultStrategy.cs" />
     <Compile Include="Disassembler\Instructions\ArgumentStrategies\IArgumentStrategy.cs" />
     <Compile Include="Disassembler\Instructions\ArgumentStrategies\NStrategy.cs" />
     <Compile Include="Disassembler\Instructions\ArgumentStrategies\RStrategy.cs" />
-    <Compile Include="Disassembler\Instructions\ArgumentStrategies\SignExtensionStrategy.cs" />
+    <Compile Include="Disassembler\Instructions\ArgumentStrategies\SignExtStrategy.cs" />
     <Compile Include="Disassembler\Instructions\Instruction.cs" />
     <Compile Include="Disassembler\Instructions\InstructionArgument.cs" />
     <Compile Include="Disassembler\Instructions\Opcode.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Addi.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Addic.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Andi.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Bf.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Bnf.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Csync.cs" />
@@ -96,12 +98,25 @@
     <Compile Include="Disassembler\Instructions\Orbis\Cust2.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Cust3.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Cust4.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Cust5.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Cust6.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Cust7.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Cust8.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\J.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Jal.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Jalr.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Jr.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Lbs.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Lbz.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Ld.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Lf.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Lhs.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Lhz.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Lwa.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Lws.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Lwz.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Mac.cs" />
+    <Compile Include="Disassembler\Instructions\Orbis\Maci.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Macrc.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\MacU.cs" />
     <Compile Include="Disassembler\Instructions\Orbis\Movhi.cs" />

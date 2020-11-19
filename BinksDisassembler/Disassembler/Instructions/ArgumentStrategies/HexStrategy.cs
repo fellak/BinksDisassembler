@@ -3,7 +3,7 @@ using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions.ArgumentStrategies
 {
-    public class AddressStrategy : IArgumentStrategy
+    public class HexStrategy : IArgumentStrategy
     {
         public string Format(BitArray value, uint position)
         {

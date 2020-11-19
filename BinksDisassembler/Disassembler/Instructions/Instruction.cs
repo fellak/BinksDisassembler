@@ -7,9 +7,9 @@ namespace BinksDisassembler.Disassembler.Instructions
 {
     public interface IInstructionFactory
     {
-        public List<Opcode> GetOpcodes();
+        public IEnumerable<Opcode> GetOpcodes();
 
-        public Instruction Create(uint position, BitArray data);
+        public Instruction Create();
     }
 
     public class Instruction
@@ -18,9 +18,7 @@ namespace BinksDisassembler.Disassembler.Instructions
         private readonly string _formatString;
         
         public uint Position;
-
         public readonly string Name;
-
         public BitArray Data = null;
 
         public Instruction(string name, string formatString = "")

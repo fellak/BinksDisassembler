@@ -6,7 +6,7 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
     public class MacFactory : IInstructionFactory
     {
-        public List<Opcode> GetOpcodes()
+        public IEnumerable<Opcode> GetOpcodes()
         {
             return new List<Opcode>()
             {
@@ -15,7 +15,7 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
             };
         }
 
-        public Instruction Create(uint position, BitArray data)
+        public Instruction Create()
         {
             var instruction = new Instruction("l.mac", "A,B");
             instruction.AddArgument("A", 5, 11, new RStrategy());

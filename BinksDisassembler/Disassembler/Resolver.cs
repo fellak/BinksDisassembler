@@ -11,6 +11,8 @@ namespace BinksDisassembler.Disassembler
 {
     public class Resolver
     {
+        // [offsets][sizes][opcodes] = Resolved
+        // SortedDictionary<uint, SortedDictionary<uint, Dictionary<uint, Resolved>>>
         private readonly SortedDictionary<uint, SortedDictionary<uint, OppcodeMapping>> _offsets 
             = new SortedDictionary<uint, SortedDictionary<uint, OppcodeMapping>>(new DescendingComparer<uint>());
         private IInstructionFactory _instructionFactory;
@@ -59,11 +61,11 @@ namespace BinksDisassembler.Disassembler
             }
         }
 
-        public Instruction Resolve(uint position, BitArray rawInstruction)
+        public Instruction Resolve(BitArray rawInstruction)
         {
             if (_instructionFactory != null)
             {
-                return _instructionFactory.Create(position, rawInstruction);
+                return _instructionFactory.Create();
             }
 
             foreach (var (offset, resolvers) in _offsets)
@@ -74,7 +76,7 @@ namespace BinksDisassembler.Disassembler
 
                     if (resolverConfig.Value.TryGetValue(sample.ToUnsignedInt(), out var resolver))
                     {
-                        var result = resolver.Resolve(position, rawInstruction);
+                        var result = resolver.Resolve(rawInstruction);
                     
                         if (result != null)
                             return result;

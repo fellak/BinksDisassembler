@@ -4,11 +4,15 @@ using BinksDisassembler.Tools;
 
 namespace BinksDisassembler.Disassembler.Instructions.ArgumentStrategies
 {
-    public class SignExtensionStrategy : IArgumentStrategy
+    public class SignExtStrategy : IArgumentStrategy
     {
         public string Format(BitArray value, uint position)
         {
-            return value.ToUnsignedInt().ToString();
+            var result = new BitArray(value);
+            result.Not();
+
+            var numericResult = (int) -(result.ToUnsignedInt() + 1);
+            return numericResult.ToString();
         }
     }
 }

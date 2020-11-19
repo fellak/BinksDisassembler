@@ -22,17 +22,9 @@ namespace BinksDisassembler.Disassembler.Instructions
             Strategy = strategy ?? new DefaultStrategy();
         }
 
-        public uint Resolve(BitArray data)
-        {
-            return data.CopySlice(Offset, Size).ToUnsignedInt();
-        }
-
         public string Format(BitArray data, uint position)
         {
             return Strategy.Format(data.CopySlice(Offset, Size), position);
-            return Strategy.Format(BitArrayFactory.FromUnsignedInt(Resolve(data), 32), position);
         }
     }
-    
-    
 }

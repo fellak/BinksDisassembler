@@ -6,7 +6,7 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
 {
     public class JalFactory : IInstructionFactory
     {
-        public List<Opcode> GetOpcodes()
+        public IEnumerable<Opcode> GetOpcodes()
         {
             return new List<Opcode>()
             {
@@ -14,7 +14,7 @@ namespace BinksDisassembler.Disassembler.Instructions.Orbis
             };
         }
 
-        public Instruction Create(uint position, BitArray data)
+        public Instruction Create()
         {
             var instruction = new Instruction("l.jal", "N");
             instruction.AddArgument("N", 26, 6, new NStrategy());

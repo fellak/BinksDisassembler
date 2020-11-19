@@ -39,7 +39,7 @@ namespace BinksDisassembler.Disassembler
                     var chunk = BitArrayFactory.FromUnsignedInt(
                         reader.ReadUInt32(), InstructionSize * 8
                         );
-                    var instruction = _instructionSet.Resolve(address, chunk) ?? new Instruction("UNKNOWN");
+                    var instruction = _instructionSet.Resolve(chunk) ?? new Instruction("UNKNOWN");
                     instruction.Position = address;
                     instruction.Data = chunk;
 
