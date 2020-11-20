@@ -25,6 +25,9 @@ namespace BinksDisassembler
 		[Action ("LoadButtonClick:")]
 		partial void LoadButtonClick (Foundation.NSObject sender);
 
+		[Action ("SaveButtonClick:")]
+		partial void SaveButtonClick (Foundation.NSObject sender);
+
 		void ReleaseDesignerOutlets ()
 		{
 			if (InstructionsTableView != null) {

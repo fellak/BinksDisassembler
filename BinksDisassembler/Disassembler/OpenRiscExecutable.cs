@@ -15,16 +15,33 @@ namespace BinksDisassembler.Disassembler
         private readonly IELF _elf;
         private readonly Resolver _instructionSet;
 
+        public List<InstructionRecord> Records;
 
         public OpenRiscExecutable(IELF elf)
         {
             _elf = elf;
             _instructionSet = Resolver.CreateInstructionSet();
+            
+            _disassemble();
+        }
+
+        public void Write(StreamWriter fs)
+        {
+            if (Records == null || Records.Count == 0)
+                return;
+
+            foreach (var record in Records)
+            {
+                fs.WriteLine(
+                    $"{record.Section}\t0x{record.Address:x8}" +
+                    $"\t0x{record.Instruction.ToHexString()}\t{record.Instruction}"
+                    );
+            }
         }
         
-        public List<InstructionRecord> Disassemble()
+        private void _disassemble()
         {
-            var instructions = new List<InstructionRecord>();
+            Records = new List<InstructionRecord>();
             var sectionsToLoad = _elf.GetSections<ProgBitsSection<uint>>()
                 .Where(x => x.Type == SectionType.ProgBits && x.Flags.HasFlag(SectionFlags.Executable));
             foreach (var s in sectionsToLoad)
@@ -43,14 +60,12 @@ namespace BinksDisassembler.Disassembler
                     instruction.Position = address;
                     instruction.Data = chunk;
 
-                    instructions.Add(
+                    Records.Add(
                         new InstructionRecord(s.Name, address, instruction)
                     );
                     position += InstructionSize;
                 }
             }
-
-            return instructions;
         }
     }
 }

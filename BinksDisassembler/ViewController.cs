@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using AppKit;
 using BinksDisassembler.Disassembler;
 using BinksDisassembler.UI;
@@ -8,6 +9,8 @@ namespace BinksDisassembler
 {
     public partial class ViewController : NSViewController
     {
+        private OpenRiscExecutable _disassemblyFile;
+        
         public ViewController(IntPtr handle) : base(handle)
         {
         }
@@ -28,13 +31,27 @@ namespace BinksDisassembler
             if (dlg.RunModal () == 1) {
                 var path = dlg.Urls[0].Path;
                 var elf = ELFReader.Load(path);
-                var disassemblyFile = new OpenRiscExecutable(elf);
+                _disassemblyFile = new OpenRiscExecutable(elf);
 
-                var dataSource = new InstructionRecordTableDataSource();
-                dataSource.Records = disassemblyFile.Disassemble();
+                var dataSource = new InstructionRecordTableDataSource {Records = _disassemblyFile.Records};
 
                 InstructionsTableView.DataSource = dataSource;
                 InstructionsTableView.Delegate = new InstructionRecordTableDelegate(dataSource);
+            }
+        }
+
+        partial void SaveButtonClick(Foundation.NSObject sender)
+        {
+            var dlg = new NSSavePanel
+            {
+                Title = "Save Assembly", AllowedFileTypes = new[] {"tsv"}
+            };
+
+            if (dlg.RunModal() == 1)
+            {
+                using var outputFile = new StreamWriter(dlg.Url.Path);
+                outputFile.WriteLine("Section\tAddress\tData\tInstruction");
+                _disassemblyFile?.Write(outputFile);
             }
         }
     }

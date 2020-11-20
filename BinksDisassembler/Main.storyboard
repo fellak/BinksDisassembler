@@ -891,6 +891,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="SaveButtonClick:" target="XfG-lQ-9wD" id="3F7-Fp-NKd"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
