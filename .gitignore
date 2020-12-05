@@ -405,3 +405,5 @@ ASALocalRun/
 .localhistory/
 /docs/.texpadtmp/
 /docs/IEEEtran.cls
+/docs/IEEEtran.bst
+/docs/IEEEtran.pdf
