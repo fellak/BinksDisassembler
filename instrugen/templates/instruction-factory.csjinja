@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using BinksDisassembler.Disassembler.Instructions.ArgumentStrategies;
+
+namespace BinksDisassembler.Disassembler.Instructions.Orbis
+{
+    public class {{ class_name }} : IInstructionFactory
+    {
+        public IEnumerable<Opcode> GetOpcodes()
+        {
+            return new List<Opcode>()
+            {
+                {% for opcode in opcodes %}new Opcode({{ opcode.value }}, {{ opcode.size }}{{ ', ' ~ opcode.offset if opcode.offset }}){{ ',\n' ~ ''|indent(width=16, indentfirst=True) if not loop.last }}{% endfor %}
+            };
+        }
+
+        public Instruction Create()
+        {
+            {{ 'var instruction =' if instruction.arguments|length else 'return' }} new Instruction("{{ instruction.name }}"{{ ', "' ~ instruction.formatString ~ '"' if instruction.formatString }});{% if instruction.arguments|length %}
+            {% for argument in instruction.arguments %}instruction.AddArgument("{{ argument.name }}", {{ argument.size }}{{ 
+                ', ' ~ argument.offset if argument.offset 
+            }}{{ 
+                ', new ' ~ argument.strategy ~ '()' if argument.strategy
+            }});{{ '\n' ~ ''|indent(width=12, indentfirst=True) if not loop.last }}{% endfor %}
+            {% if instruction.arguments|length %}return instruction;{% endif %}{%endif%}
+        }
+    }
+}
